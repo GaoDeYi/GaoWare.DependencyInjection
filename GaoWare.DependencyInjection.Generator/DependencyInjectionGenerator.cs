@@ -19,7 +19,7 @@ public sealed partial class DependencyInjectionGenerator : IIncrementalGenerator
 
     public void Initialize(IncrementalGeneratorInitializationContext context)
     {
-        Debugger.Launch();
+        // Debugger.Launch();
         var classDeclarations = context.SyntaxProvider
             .ForAttributeWithMetadataName(
                 CodeGenerator.DependencyRegistrationAttribute,
