@@ -5,11 +5,15 @@ namespace GaoWare.DependencyInjection.Generator.Sample;
 
 // This code will not compile until you build the project with the Source Generators
 
-public partial class TestClass
+public static partial class TestClass
 {
 
-    [GenerateServiceRegistration]
-    public virtual partial void TestGenerator(IServiceCollection? serviceCollection);
+    [DependencyRegistration]
+    public static partial void TestGenerator(IServiceCollection? serviceCollection);
+
+    [DependencyRegistration]
+    public static partial void TestGen(this IServiceCollection? serviceCollection);
+
 }
 
 
@@ -30,13 +34,13 @@ public class Service1 : ITestService
     
 }
 
-[RegisterService(ServiceLifetime.Scoped, interfaceType: typeof(ITestServiceWithoutAttribute))]
+[RegisterService(ServiceLifetime.Scoped, InterfaceType = typeof(ITestServiceWithoutAttribute))]
 public class Service2 : ITestServiceWithoutAttribute
 {
     
 }
 
-[RegisterService(ServiceLifetime.Transient)]
+[RegisterService(ServiceLifetime.Transient, ServiceKey = "TestKey")]
 public class Service3 : ITestServiceWithoutAttribute
 {
     

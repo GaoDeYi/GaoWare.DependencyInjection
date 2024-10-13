@@ -7,7 +7,7 @@ namespace GaoWare.DependencyInjection.Attributes;
 /// Automatically go through the interfaces which are inherited and use them for registration
 /// </summary>
 [AttributeUsage(AttributeTargets.Class, Inherited = false, AllowMultiple = false)]
-public class RegisterServiceAttribute
+public class RegisterServiceAttribute : Attribute
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="RegisterServiceAttribute"/> class

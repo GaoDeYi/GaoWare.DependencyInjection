@@ -11,7 +11,7 @@ namespace GaoWare.DependencyInjection.Attributes;
 /// <para>   - Must return <c>void</c>.</para>
 /// <para>   - Must not be generic.</para>
 /// <para>   - Must have an <see cref="IServiceCollection"/> as one of its parameters.</para>
-/// <para>   - The method can be written as extension method for the <see cref="IServiceCollection"/> porameter</para>
+/// <para>   - Can be an extension method to the <see cref="IServiceCollection"/></para>
 /// </remarks>
 [AttributeUsage(AttributeTargets.Method, Inherited = false, AllowMultiple = false)]
 public class DependencyRegistrationAttribute : Attribute

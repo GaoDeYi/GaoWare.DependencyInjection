@@ -12,7 +12,7 @@
     </ItemGroup>
     
     <ItemGroup>
-        <ProjectReference Include="..\GaoWare.DependencyInjection.Generator\GaoWare.DependencyInjection.Generator.csproj" /><!-- OutputItemType="Analyzer" ReferenceOutputAssembly="false" -->
+        <ProjectReference Include="..\GaoWare.DependencyInjection.Generator\GaoWare.DependencyInjection.Generator.csproj" PackAsAnalyzer="true" />
     </ItemGroup>
     
     
