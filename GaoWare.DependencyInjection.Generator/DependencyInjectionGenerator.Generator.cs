@@ -122,8 +122,12 @@ public partial class DependencyInjectionGenerator
                     if (st is not null) statements.Add(st);
                 }
 
-                if (methodSymbol.ReturnsVoid &&
-                    statements.Any())
+                if (!statements.Any())
+                {
+                    statements.Add(SyntaxFactory.ReturnStatement());
+                }
+
+                if (methodSymbol.ReturnsVoid)
                 {
                     members.Add(
                         MethodDeclaration(PredefinedType(Token(SyntaxKind.VoidKeyword)),

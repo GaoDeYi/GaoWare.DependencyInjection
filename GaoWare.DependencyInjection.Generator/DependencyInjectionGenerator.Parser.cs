@@ -166,10 +166,22 @@ public partial class DependencyInjectionGenerator
 
         private DependencyService? ParseAttributeData(string fullyQualifiedName, AttributeData attribute)
         {
+            // Without constructor or paramters
+
+            if (!attribute.NamedArguments.Any() &&
+                !attribute.ConstructorArguments.Any())
+            {
+                return new DependencyService()
+                {
+                    FullyQualifiedName = fullyQualifiedName,
+                    ServiceLifetime = 1
+                };
+            }
             DependencyService ret = new();
             ret.FullyQualifiedName = fullyQualifiedName;
             int? lifetimeParameter = null;
             bool hasMisconfiguredInput = false;
+
             // Parse constructor arguments
             if (attribute.ConstructorArguments.Any())
             {
@@ -183,8 +195,6 @@ public partial class DependencyInjectionGenerator
             }
             
             // Named Members
-             // argument syntax takes parameters. e.g. EventId = 0
-            // supports: e.g. [LoggerMessage(EventId = 0, Level = LogLevel.Warning, Message = "custom message")]
             if (attribute.NamedArguments.Any())
             {
                 foreach (KeyValuePair<string, TypedConstant> namedArgument in attribute.NamedArguments)
@@ -222,15 +232,16 @@ public partial class DependencyInjectionGenerator
                     }
                 }
             }
-            if(lifetimeParameter is not null &&
-               hasMisconfiguredInput == false)
-            {
-                ret.ServiceLifetime = lifetimeParameter.Value;
-                return ret;
-            }
-            
 
-            return null;
+            if (lifetimeParameter is null ||
+                hasMisconfiguredInput)
+            {
+                ret.ServiceLifetime = 1;
+                return ret;
+            } 
+            
+            ret.ServiceLifetime = lifetimeParameter.Value; 
+            return ret;
         }
 
         private bool CheckClassInheritInterface(INamedTypeSymbol interfaceToCheck, ITypeSymbol interfaceSymbol)
